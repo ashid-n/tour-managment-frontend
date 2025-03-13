@@ -1,13 +1,20 @@
-import React from 'react';
+import React,{useRef , useState} from 'react';
 import { Container, Row, Col, Form, ListGroup } from 'reactstrap';
 import { useParams } from 'react-router-dom';
 import tourData from '../assets/data/tours';
 import calculateAvgRating from '../utils/avgRating';
 import '../Styles/tour-detailes.css';
 import avatar from '../assets/images/avatar.jpg';
+import Booking from '../Components/Booking/Booking';
+import Newsletter from '../Shared/Newsletter';
 
 const TourDetails = () => {
   const { id } = useParams();
+
+  const reviewMsgRef = useRef('')
+  const [tourRating , setTourRating] = useState(null)
+
+  // this is an satic database
   const tour = tourData.find(tour => tour.id === id);
 
   if (!tour) {
@@ -19,6 +26,15 @@ const TourDetails = () => {
 
   // format date
   const options = { day: 'numeric', month: 'long', year: 'numeric' };
+
+  // submit request to the server
+  const submitHandler = e => {
+    e.preventDefault()
+    const reviewText = reviewMsgRef.current.value;
+
+
+    //later will call our api
+  }
 
   return (
     <>
@@ -45,7 +61,7 @@ const TourDetails = () => {
 
                   <div className="tour__extra-detailes">
                     <span><i className="ri-map-pin-2-line"></i> {city}</span>
-                    <span><i className="ri-money-dollar-circle-line"></i> {price} / per person</span>
+                    <span><i className="ri-money-dollar-circle-line"></i> ${price} / per person</span>
                     <span><i className="ri-map-pin-time-line"></i> {distance} km</span>
                     <span><i className="ri-group-line"></i> {maxGroupSize} people</span>
                   </div>
@@ -57,17 +73,17 @@ const TourDetails = () => {
                 <div className="tour__reviews mt-4">
                   <h4>Reviews ({reviews?.length} reviews)</h4>
 
-                  <Form>
+                  <Form onSubmit={submitHandler}>
                     <div className="d-flex align-items-center gap-3 mb-4 rating__group">
-                      <span>1<i className="ri-star-s-fill"></i></span>
-                      <span>2<i className="ri-star-s-fill"></i></span>
-                      <span>3<i className="ri-star-s-fill"></i></span>
-                      <span>4<i className="ri-star-s-fill"></i></span>
-                      <span>5<i className="ri-star-s-fill"></i></span>
+                      <span onClick={()=> setTourRating(1)}>1<i className="ri-star-s-fill"></i></span>
+                      <span onClick={()=> setTourRating(2)}>2<i className="ri-star-s-fill"></i></span>
+                      <span onClick={()=> setTourRating(3)}>3<i className="ri-star-s-fill"></i></span>
+                      <span onClick={()=> setTourRating(4)}>4<i className="ri-star-s-fill"></i></span>
+                      <span onClick={()=> setTourRating(5)}>5<i className="ri-star-s-fill"></i></span>
                     </div>
 
                     <div className="review__input">
-                      <input type="text" placeholder='share your thoughts'/>
+                      <input type="text" ref={reviewMsgRef} placeholder='share your thoughts' required />
                       <button className="btn primary__btn text-white" type='submit'>
                         Submit
                       </button>
@@ -98,9 +114,15 @@ const TourDetails = () => {
                 {/* =============== tour reviews section end ============= */}
               </div>
             </Col>
+
+
+            <Col lg='4'>
+            <Booking tour={tour} avgRating={avgRating}/>
+            </Col>
           </Row>
         </Container>
       </section>
+      <Newsletter/>
     </>
   );
 };
