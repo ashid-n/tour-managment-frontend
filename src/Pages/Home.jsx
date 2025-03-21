@@ -10,10 +10,11 @@ import WorldImg from '../assets/images/world.png';
 import SearchBar from '../Shared/SearchBar';
 import Servicelist from '../Services/Servicelist';
 import experienceImg from '../assets/images/experience.png';
-import FeatureadTourList from '../Components/FeaturedTours/FeatureadTourList';
+import FeatureadTourList from '../Components/FeaturedTours/FeaturedTourList';
 import MasonaryImageGallery from '../Components/Image-gallery/MasonaryImageGallery';
 import Testimonial from '../Components/Testimonial/Testimonial';
 import Newsletter from '../Shared/Newsletter';
+import Chatbot from '../Components/Chatbot/Chatbot';
 
 
 const Home = () => {
@@ -48,7 +49,7 @@ const Home = () => {
             </Col>
 
             <Col lg='2'>
-            <div className="hero__img-box mt-4">
+            <div className="hero__img-box hero__video-box mt-4">
               <video src={heroImgvideo} alt="" controls />
             </div>
             </Col>
@@ -170,7 +171,11 @@ const Home = () => {
 
             {/* ================== testimonial section end ====================== */}
 
+            <Chatbot/>
             <Newsletter/>
+
+           
+          
 
     </>
   );

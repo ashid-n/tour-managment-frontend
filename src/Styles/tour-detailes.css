@@ -127,3 +127,20 @@
  .review__item span {
     font-weight: 500;
  }
+
+@media only screen and (max-width:768px){
+   
+
+   .tour__extra-detailes{
+      flex-wrap: wrap;
+      row-gap: 1rem;
+   }
+
+   .tour__extra-detailes span{
+      font-size: 0.9rem;
+   }
+
+   .tour__extra-detailes span i{
+      font-size: 1rem;
+   }
+}

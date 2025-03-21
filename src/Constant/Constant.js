@@ -1,0 +1,1 @@
+export const  VITE_API_URL="https://generativelanguage.googleapis.com/v1/models/gemini-2.0-pro:generateContent?key=AIzaSyC_3YDC-fbf49YyPD3canSSqhF4D183gMw"
